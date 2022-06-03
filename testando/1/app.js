@@ -7,3 +7,8 @@ var Carro;
 var NumeroDePneus = Carro.Pneus;
 console.log(Carro);
 console.log(NumeroDePneus);
+function imprimirInformacoes(obj) {
+    console.log(obj.nome, obj.idade);
+}
+var pessoa = { nome: 'Sião', idade: 15 };
+imprimirInformacoes(pessoa);

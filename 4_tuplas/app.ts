@@ -10,3 +10,9 @@ pivete = ['Matheus', true, 26]
 
 console.log(pessoa)
 console.log(pivete)
+
+
+let carro: [string, number, boolean]
+
+carro = ['BMW', 2, true]
+console.log(carro)

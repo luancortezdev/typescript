@@ -21,3 +21,11 @@ Barco.Motor = '2 motores'
 
 console.log(Barco)
 console.log(numeroDeMotores)
+
+enum Moto {Motor = 1, Rodas = 2, Retrovisor = 2}
+
+let numeroDeRetrovisores = Moto.Retrovisor
+console.log(Moto)
+console.log(numeroDeRetrovisores)
+
+Moto.Rodas = 5
