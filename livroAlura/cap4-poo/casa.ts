@@ -14,5 +14,3 @@ class Casa {
 }
 
 let cortezHouse = new Casa(5, 2, true, 'Manoel alguma coisa')
-
-console.log(cortezHouse)
