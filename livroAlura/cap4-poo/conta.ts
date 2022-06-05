@@ -9,8 +9,8 @@ class Conta {
         this.saldo = saldo;
     }
 
-    protected consultaSaldo(): string {
-        return `O seu saldo atual é: ${this.saldo}`
+    protected consultaSaldo(): number {
+        return this.saldo
     }
 
     protected adicionarSaldo(saldo: number): void { //void informa que a função não tem retorno
@@ -27,6 +27,16 @@ const primeiraConta = new Conta(0, 'Cortez', 100)
 class ContaPF extends Conta{
     cpf: number;
 
+    sacar(valor: number) {
+        if(this.consultaSaldo() > 0 && valor <= this.consultaSaldo()) {
+            this.sacarDoSaldo(valor)
+        }
+    }
+
+    consultar(): string {
+        return `Saldo atual: ${this.consultaSaldo()}`
+    }
+
     constructor(cpf: number, numeroDaConta: number, titular: string, saldo: number) {
         super(numeroDaConta, titular, saldo)
         this.cpf = cpf
@@ -36,6 +46,14 @@ class ContaPF extends Conta{
 
 class ContaPJ extends Conta{
     cnpj: number;
+
+    sacar(valor: number) {
+        this.sacarDoSaldo(valor)
+    }
+
+    consultar(): string {
+        return `Saldo atual: ${this.consultaSaldo()}`
+    }
 
     constructor(cnpj: number, numeroDaConta: number, titular: string, saldo: number) {
         super(numeroDaConta, titular, saldo)
