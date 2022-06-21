@@ -14,19 +14,26 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 var Conta = /** @class */ (function () {
-    function Conta(numeroDaConta, titular, saldo) {
-        this.numeroDaConta = numeroDaConta;
+    function Conta(titular, saldo) {
+        this._numeroDaConta = Math.floor(Math.random() * 1000) + 1;
         this.titular = titular;
-        this.saldo = saldo;
+        this._saldo = saldo;
     }
+    Object.defineProperty(Conta.prototype, "numeroDaConta", {
+        get: function () {
+            return this._numeroDaConta;
+        },
+        enumerable: false,
+        configurable: true
+    });
     Conta.prototype.consultaSaldo = function () {
-        return "O seu saldo atual \u00E9: ".concat(this.saldo);
+        return this._saldo;
     };
     Conta.prototype.adicionarSaldo = function (saldo) {
-        this.saldo + saldo;
+        this._saldo + saldo;
     };
     Conta.prototype.sacarDoSaldo = function (valor) {
-        this.saldo -= valor;
+        this._saldo -= valor;
     };
     return Conta;
 }());
@@ -38,18 +45,32 @@ var ContaPF = /** @class */ (function (_super) {
         _this.cpf = cpf;
         return _this;
     }
+    ContaPF.prototype.sacar = function (valor) {
+        if (this.consultaSaldo() > 0 && valor <= this.consultaSaldo()) {
+            this.sacarDoSaldo(valor);
+        }
+    };
+    ContaPF.prototype.consultar = function () {
+        return "Saldo atual: ".concat(this.consultaSaldo());
+    };
     return ContaPF;
 }(Conta));
 var ContaPJ = /** @class */ (function (_super) {
     __extends(ContaPJ, _super);
-    function ContaPJ(cnpj, numeroDaConta, titular, saldo) {
-        var _this = _super.call(this, numeroDaConta, titular, saldo) || this;
+    function ContaPJ(cnpj, titular, saldo) {
+        var _this = _super.call(this, titular, saldo) || this;
         _this.cnpj = cnpj;
         return _this;
     }
+    ContaPJ.prototype.sacar = function (valor) {
+        this.sacarDoSaldo(valor);
+    };
+    ContaPJ.prototype.consultar = function () {
+        return "Saldo atual: ".concat(this.consultaSaldo());
+    };
     return ContaPJ;
 }(Conta));
 var pessoaFisica = new ContaPF(11300794496, 1, 'Luan', 200);
-var pessoaJuridica = new ContaPJ(1130079449666, 2, 'Cortez Dev', 3546);
+var pessoaJuridica = new ContaPJ(46173051000116, 'Cortez Empreendimentos', 1000);
 console.log(pessoaFisica);
 console.log(pessoaJuridica);

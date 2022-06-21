@@ -1,24 +1,28 @@
-class Conta {
-    private numeroDaConta: number;
+abstract class Conta {
+    private readonly _numeroDaConta: number;
     titular: string;
-    private saldo: number;
+    private _saldo: number;
+
+    get numeroDaConta(): number {
+        return this._numeroDaConta
+    }
 
     constructor(titular: string, saldo: number) {
-        this.numeroDaConta = Math.floor(Math.random() * 1000) + 1;
+        this._numeroDaConta = Math.floor(Math.random() * 1000) + 1;
         this.titular = titular;
-        this.saldo = saldo;
+        this._saldo = saldo;
     }
 
     protected consultaSaldo(): number {
-        return this.saldo
+        return this._saldo
     }
 
     protected adicionarSaldo(saldo: number): void { //void informa que a função não tem retorno
-        this.saldo + saldo
+        this._saldo + saldo
     }
 
     protected sacarDoSaldo(valor: number): void {
-        this.saldo -= valor
+        this._saldo -= valor
     }
 }
 
@@ -37,8 +41,8 @@ class ContaPF extends Conta{
         return `Saldo atual: ${this.consultaSaldo()}`
     }
 
-    constructor(cpf: number, numeroDaConta: number, titular: string, saldo: number) {
-        super(numeroDaConta, titular, saldo)
+    constructor(cpf: number, titular: string, saldo: number) {
+        super(titular, saldo)
         this.cpf = cpf
     }
 
@@ -55,15 +59,15 @@ class ContaPJ extends Conta{
         return `Saldo atual: ${this.consultaSaldo()}`
     }
 
-    constructor(cnpj: number, numeroDaConta: number, titular: string, saldo: number) {
-        super(numeroDaConta, titular, saldo)
+    constructor(cnpj: number, titular: string, saldo: number) {
+        super(titular, saldo)
         this.cnpj = cnpj
     }
 
 }
 
-const pessoaFisica = new ContaPF(11300794496, 1, 'Luan', 200)
-const pessoaJuridica = new ContaPJ(1130079449666, 2, 'Cortez Dev', 3546)
+const pessoaFisica = new ContaPF(11300794496, 'Luan', 200)
+const pessoaJuridica = new ContaPJ(46173051000116, 'Cortez Empreendimentos', 1000)
 
 console.log(pessoaFisica)
 console.log(pessoaJuridica)
